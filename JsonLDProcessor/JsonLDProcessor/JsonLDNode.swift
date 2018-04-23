@@ -9,6 +9,56 @@
 import Foundation
 import SwiftyJSON
 
+enum keywords : String {
+    case CONTEXT = "@context"
+    case ID = "@id"
+    case VALUE = "@value"
+    case LANGUAGE = "@language"
+    case TYPE = "@type"
+    case CONTAINER = "@container"
+    case LIST = "@list"
+    case SET = "@set"
+    case GRAPH = "@graph"
+    case REVERSE = "@reverse"
+    case BASE = "@base"
+    case VOCAB = "@vocab"
+    case INDEX = "@index"
+    case NULL = "@null"
+
+    static func description(keywordType: keywords) -> String {
+        switch keywordType {
+        case .CONTEXT:
+            return "@context"
+        case .ID:
+            return "@id"
+        case .VALUE:
+            return "@value"
+        case .LANGUAGE:
+            return "@language"
+        case .TYPE:
+            return "@type"
+        case .CONTAINER:
+            return "@container"
+        case .LIST:
+            return "@list"
+        case .SET:
+            return "@set"
+        case .GRAPH:
+            return "@id"
+        case .REVERSE:
+            return "@reverse"
+        case .BASE:
+            return "@base"
+        case .VOCAB:
+            return "@vocab"
+        case .INDEX:
+            return "@index"
+        case .NULL:
+            return "@null"
+        }
+    }
+}
+
 enum NodeType {
     case null
     case array
@@ -28,6 +78,74 @@ class Node  {
     var value : String? = nil
     var valueType : JSONLD_StringType = .Null
     var childNodes : [Node] = [Node]()
+    
+    func expandNode(activeContext : Node) -> Dictionary<String,Any>? {
+        var dict : Dictionary<String,Any>? = Dictionary<String,Any>()
+        
+        //Check Node type
+        switch type {
+        
+        case .array, .dictionary:
+            if self.key != keywords.description(keywordType: .CONTEXT) {
+            var childDictArray = Array<Dictionary<String,Any>>()
+            for node in self.childNodes {
+                if let childDict = node.expandNode(activeContext: activeContext) {
+                    childDictArray.append(childDict)
+                }
+            }
+                dict![self.key!] = childDictArray
+                return dict
+            }else {
+                return nil
+            }
+        case .number, .bool, .string:
+            //Expand key based on keyType
+            var expandedKey : String?
+            var expandedValue : Array<Any>? = Array<Any>()
+
+            //Expand values
+            switch valueType {
+                
+            case .Null:
+                dict = nil
+                return dict
+            case .NormalString, .IRI, .AbsoluteIRI, .JsonLD, .Term:
+                var tempDict = Dictionary<String,Any>()
+                tempDict[keywords.description(keywordType: .VALUE)] = self.value
+                expandedValue?.append(tempDict as Any)
+            case .CompactIRI:
+                if let tempExpandValue = self.value?.expandCompactIRI(activeContext: activeContext) {
+                    expandedValue?.append(tempExpandValue)
+                }
+            }
+
+            switch keyType {
+                
+            case .Null:
+                if (expandedValue?.count)! > 0 {
+                    dict![keywords.description(keywordType: .ID)] = expandedValue
+                }else {
+                    dict = nil
+                    return dict
+                }
+            case .NormalString, .IRI, .AbsoluteIRI, .JsonLD:
+                expandedKey = key
+            case .CompactIRI:
+                expandedKey = key?.expandCompactIRI(activeContext: activeContext)
+            case .Term:
+                expandedKey = key?.expandKeyTermToAbsoulteIRI(activeContext: activeContext)
+            }
+            
+            if let unWrappedExpandedKey = expandedKey {
+                dict![unWrappedExpandedKey] = expandedValue
+            }
+        case .unknown, .null:
+            dict = nil
+            return dict
+        }
+        
+        return dict
+    }
     
     class func jsonLdToNodeStructure(json: JSON, key : String?, activeContext : JSON) -> Node {
         
@@ -85,13 +203,25 @@ class Node  {
         
         case .Null:
             return nil
-        case .IRI, .AbsoluteIRI, .JsonLD, .NormalString:
+        case .IRI, .AbsoluteIRI, .NormalString:
             tempKey = currentNode.key
             tempValue = self.expandValue(currentNode: currentNode, contextNode: contextNode)
+        case .JsonLD:
+            tempKey = currentNode.key
+            tempValue = self.expandValue(currentNode: currentNode, contextNode: contextNode)
+            if tempValue is Array<Dictionary<String,Any>> {
+                let valueInArray = tempValue as! Array<Dictionary<String,Any>>
+                for element in valueInArray {
+                    if element is Dictionary<String,Any> {
+                        let valueInDict = element
+                        tempValue = valueInDict["@value"]
+                    }
+                }
+            }
         case .CompactIRI:
             tempKey = currentNode.key?.expandCompactIRI(activeContext: contextNode)
             tempValue = self.expandValue(currentNode: currentNode, contextNode: contextNode)
-        case .TermOrScalar:
+        case .Term:
             tempKey = self.expandKey(currentNode: currentNode, contextNode: contextNode)
             tempValue = self.expandValue(currentNode: currentNode, contextNode: contextNode)
         }
@@ -104,6 +234,9 @@ class Node  {
         }
 }
     
+    /**
+     Expanded format's value should be in Array, so every expandValue return object is in Array
+ **/
     class func expandValue(currentNode:Node, contextNode:Node) -> Any? {
         var array = [Dictionary<String, Any>]()
         var dict = Dictionary<String, Any>()
@@ -115,17 +248,20 @@ class Node  {
                 for node in currentNode.childNodes {
                     
                     switch node.valueType {
-                    case .NormalString, .TermOrScalar:
+                    case .NormalString, .Term:
                         if let value = node.value {
                             dict["@value"] = value
+                            array.append(dict)
                         }
                     case .IRI, .AbsoluteIRI:
                         if let value = node.value {
                             dict["@id"] = value
+                            array.append(dict)
                         }
                     case .CompactIRI:
                         if let value = node.value?.expandCompactIRI(activeContext: contextNode) {
                             dict["@id"] = value
+                            array.append(dict)
                         }
                     case .JsonLD, .Null:
                         print("value shouldn't be as JsonLD / Null")
@@ -153,14 +289,19 @@ class Node  {
             switch keyContextNode.type {
             case .array, .dictionary:
                 if let index = keyContextNode.childNodes.index(where: {$0.key == "@type"}) {
-                    let keyContextNode = keyContextNode.childNodes[index]
-                    dict["@type"] = keyContextNode.value
+                    let typeNode = keyContextNode.childNodes[index]
+                    if typeNode.valueType == .CompactIRI {
+                        dict["@type"] = typeNode.value?.expandCompactIRI(activeContext: contextNode)
+                    }else if typeNode.valueType == .JsonLD && typeNode.value != "@id"{
+                        dict["@type"] = typeNode.value
+                    }
                 }
             case .number, .bool, .string, .null, .unknown:
                 break
             }
         }
-        if dict != nil {
+        
+        if dict.count > 0 {
             array.append(dict)
         }
         return array
@@ -183,30 +324,5 @@ class Node  {
             }
         }
         return nil
-    }
-}
-
-extension String {
-    func expandCompactIRI(activeContext : Node) -> String? {
-        let array = self.components(separatedBy: ":")
-        let prefixKeyStr : String = array[0]
-        var prefixKeyNode : Node? = nil
-        if let index = activeContext.childNodes.index(where: {$0.key == prefixKeyStr}) {
-            prefixKeyNode = activeContext.childNodes[index]
-            
-            if let unwrapNode = prefixKeyNode {
-                switch unwrapNode.valueType {
-                case .Null, .NormalString, .TermOrScalar, .CompactIRI, .JsonLD:
-                    print("value type should not be .Null, .NormalString, .TermOrScalar, .CompactIRI, .JsonLD")
-                    return nil
-                case .IRI, .AbsoluteIRI:
-                    let suffixkeyValue = array[1]
-                    return unwrapNode.value! + suffixkeyValue
-                }
-            }
-        }else {
-            print("Prefix key is not available at Context Dictionary")
-            return nil
-        }
     }
 }

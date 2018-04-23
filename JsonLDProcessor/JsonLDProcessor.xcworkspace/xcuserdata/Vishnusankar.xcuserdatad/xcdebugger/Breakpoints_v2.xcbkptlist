@@ -6,64 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JsonLDProcessor/AppDelegate.swift"
-            timestampString = "544332254.837865"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "expands(response:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "JsonLDProcessor.Document.expands(response: SwiftyJSON.JSON) -&gt; Swift.Array&lt;SwiftyJSON.JSON&gt;"
-                  moduleName = "JsonLDProcessor"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/global/Documents/JsonLD/Swift/JsonLDProcessor/JsonLDProcessor/AppDelegate.swift"
-                  timestampString = "544331984.168385"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "82"
-                  endingLineNumber = "82"
-                  offsetFromSymbolStart = "200">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "JsonLDProcessor.Document.expands(response: SwiftyJSON.JSON) -&gt; Swift.Array&lt;SwiftyJSON.JSON&gt;"
-                  moduleName = "JsonLDProcessor"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/global/Documents/JsonLD/Swift/JsonLDProcessor/JsonLDProcessor/AppDelegate.swift"
-                  timestampString = "544331984.171801"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "82"
-                  endingLineNumber = "82"
-                  offsetFromSymbolStart = "2225">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JsonLDProcessor/JsonLDNode.swift"
-            timestampString = "544332254.837979"
+            timestampString = "546088843.3655879"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "40"
             endingLineNumber = "40"
-            landmarkName = "jsonLdToNodeStructure(json:key:activeContext:)"
+            landmarkName = "description(keywordType:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -74,27 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JsonLDProcessor/JsonLDNode.swift"
-            timestampString = "544332254.838502"
+            timestampString = "546088843.368462"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
-            landmarkName = "expandKey(currentNode:contextNode:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JsonLDProcessor/JsonLDNode.swift"
-            timestampString = "544332254.838874"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
             landmarkName = "expandNode(currentNode:contextNode:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,12 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JsonLDProcessor/JsonLDNode.swift"
-            timestampString = "544332254.839215"
+            timestampString = "546088843.368926"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
-            landmarkName = "expandNode(currentNode:contextNode:)"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "expandNode(activeContext:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -122,13 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JsonLDProcessor/AppDelegate.swift"
-            timestampString = "544332254.839538"
+            timestampString = "544936197.186072"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
-            landmarkType = "7">
+            startingLineNumber = "104"
+            endingLineNumber = "104">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -138,109 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JsonLDProcessor/AppDelegate.swift"
-            timestampString = "544332254.8396111"
+            timestampString = "544936197.186536"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JsonLDProcessor/JsonLDNode.swift"
-            timestampString = "544332254.8396749"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "expandValue(currentNode:contextNode:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JsonLDProcessor/JsonLDNode.swift"
-            timestampString = "544332254.839975"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
-            landmarkName = "expandNode(currentNode:contextNode:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JsonLDProcessor/JsonLDNode.swift"
-            timestampString = "544332254.840271"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
-            landmarkName = "expandValue(currentNode:contextNode:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static JsonLDProcessor.Node.expandValue(currentNode: JsonLDProcessor.Node, contextNode: JsonLDProcessor.Node) -&gt; Swift.Optional&lt;Any&gt;"
-                  moduleName = "JsonLDProcessor"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/global/Documents/JsonLD/Swift/JsonLDProcessor/JsonLDProcessor/JsonLDNode.swift"
-                  timestampString = "544331984.227913"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "157"
-                  endingLineNumber = "157"
-                  offsetFromSymbolStart = "4011">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (JsonLDProcessor.Node) -&gt; Swift.Bool in static JsonLDProcessor.Node.expandValue(currentNode: JsonLDProcessor.Node, contextNode: JsonLDProcessor.Node) -&gt; Swift.Optional&lt;Any&gt;"
-                  moduleName = "JsonLDProcessor"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/global/Documents/JsonLD/Swift/JsonLDProcessor/JsonLDProcessor/JsonLDNode.swift"
-                  timestampString = "544331984.230734"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "157"
-                  endingLineNumber = "157"
-                  offsetFromSymbolStart = "18">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JsonLDProcessor/JsonLDNode.swift"
-            timestampString = "544332254.840566"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "expandValue(currentNode:contextNode:)"
-            landmarkType = "7">
+            startingLineNumber = "104"
+            endingLineNumber = "104">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
